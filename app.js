@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: false}));
 
-app.use(adminRouter);
+app.use('/admin',adminRouter);
 app.use(shopRouter);
 
 app.use((req, res) => { 
