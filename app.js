@@ -1,8 +1,10 @@
 const http = require('http');
 const express = require('express');
 const adminRouter = require('./router/admin');
-const shopRouter = require('./router/shop')
+const shopRouter = require('./router/shop');
+const path = require('path');
 const app = express();
+
 
 app.use(express.urlencoded({extended: false}));
 
@@ -10,7 +12,7 @@ app.use('/admin',adminRouter);
 app.use(shopRouter);
 
 app.use((req, res) => { 
-    res.status(404).send('<h1>page not found</h1>');
+    res.status(404).sendFile(path.join(__dirname,'views', '404.html'));
  })
 
 const server = http.createServer(app);
