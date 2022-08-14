@@ -5,8 +5,8 @@ const shopRouter = require('./router/shop');
 const path = require('path');
 const app = express();
 
-
 app.use(express.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin',adminRouter);
 app.use(shopRouter);
@@ -18,3 +18,4 @@ app.use((req, res) => {
 const server = http.createServer(app);
 
 server.listen(3000);
+console.log("Starting server on port 3000...http://localhost:3000"); 
