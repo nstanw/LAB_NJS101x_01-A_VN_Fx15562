@@ -7,11 +7,13 @@ const adminData = require('./admin')
 
 router.get('/',(req,res, next) => { 
   const products = adminData.products;
-  res.render('shop.pug',{
-      prods: products, 
-      docTitle: "Shop", 
-      // description: products[0].description,
-      // price: products[0].price,
+  res.render('shop',{
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
   });
  });
 
