@@ -2,8 +2,10 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const app = express();
+const expressHbs = require('express-handlebars');
 
-app.set('view engine', 'pug');
+app.engine('hbs', expressHbs())
+app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 const adminData = require('./router/admin');
@@ -16,7 +18,7 @@ app.use('/admin', adminData.routes);
 app.use(shopRouter);
 
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.status(404).render("404.hbs",{pageTitle: 'Page not found'});
 })
 
 const server = http.createServer(app);
