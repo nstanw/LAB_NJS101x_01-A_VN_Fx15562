@@ -2,14 +2,9 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const app = express();
-const expressHbs = require('express-handlebars');
+const ejs = require('ejs');
 
-app.engine('hbs', expressHbs({
-    layoutsDir: 'views/layouts/',
-    defaultLayout: 'main-layout',
-    extname: 'hbs'
-}));
-app.set('view engine', 'hbs');
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminData = require('./router/admin');
@@ -22,7 +17,7 @@ app.use('/admin', adminData.routes);
 app.use(shopRouter);
 
 app.use((req, res) => {
-    res.status(404).render("404.hbs",{pageTitle: 'Page not found'});
+    res.status(404).render("404",{pageTitle: 'Page not found'});
 })
 
 const server = http.createServer(app);
