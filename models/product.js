@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path")
 const product = [];
 
 module.exports = class Product {
@@ -6,10 +8,29 @@ module.exports = class Product {
     }
 
     save() {
-        product.push(this);
+        const p = path.join((process.mainModule.filename),
+         "data",
+         "products.json"
+        );
+        fs.readFile(p, (err, fileContent)=>{
+            let products = [];
+            if (!err) {
+                products = JSON.parse(fileContent);
+            }
+            products.push(this);
+            fs.writeFile(p, JSON.stringify(products), (err)=>{
+                console.log(err);
+            })
+        })
     }
 
     static fetchAll() {
-        return product;
+        const p = path.join((process.mainModule.filename), 'data', 'products.json');
+        fs.readFile(p, (err, fileContent)=> {
+            if (err) {
+                return [];
+            }
+            return JSON.parse(fileContent);
+        });
     }
 }
