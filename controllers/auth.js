@@ -4,6 +4,7 @@ exports.getLogin = (req, res, next) => {
   //   .split(';')[1]
   //   .trim()
   //   .split('=')[1] == true;
+  console.log(req.session.isLoggedIn);
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
@@ -14,6 +15,6 @@ exports.getLogin = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   // res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=31536000; Expires=Thu, 01 Jan 1970');
   // https://viblo.asia/p/ban-da-hieu-ro-ve-http-cookie-djeZ1DvGKWz
-  res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=1; HttpOnly=true;');
+  req.session.isLoggedIn = true;
   res.redirect('/');
 };
