@@ -16,7 +16,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
@@ -36,7 +36,7 @@ app.use(errorController.get404);
 
 mongoose
   .connect(
-    'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/shop?retryWrites=true'
+    'mongodb://localhost:27017'
   )
   .then(result => {
     User.findOne().then(user => {
@@ -51,7 +51,7 @@ mongoose
         user.save();
       }
     });
-    app.listen(3000);
+    app.listen(3009);
   })
   .catch(err => {
     console.log(err);
